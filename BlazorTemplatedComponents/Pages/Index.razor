@@ -1,7 +1,22 @@
-﻿@page "/"
+﻿@using static BlazorTemplatedComponents.Shared.Dialog;
+@page "/"
+@using System.Diagnostics;
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Basic Dialog</PageTitle>
 
-<h1>Hello, world!</h1>
+<Dialog Title="Are you sure?" Buttons="@Buttons">
+    <Body>Do you really want to delete this user?</Body>
+</Dialog>
 
-Welcome to your new app.
+@code {
+    public IEnumerable<DialogButton> Buttons { get; set; } = new List<DialogButton>{
+        new DialogButton("Delete", () =>
+        {
+            Debug.WriteLine("Delete");
+        }),
+        new DialogButton("Cancel", () =>
+        {
+            Debug.WriteLine("Cancel");
+        })
+    };
+}

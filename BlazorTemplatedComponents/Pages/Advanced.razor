@@ -1,0 +1,48 @@
+﻿@using static BlazorTemplatedComponents.Shared.Dialog;
+@page "/advanced"
+@using System.Diagnostics;
+
+<PageTitle>Basic Dialog</PageTitle>
+
+<Dialog Title="Do you want to move this team?" Buttons="@Buttons">
+    <Body>
+        <h4>Team members</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th width="200">Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var member in Members)
+                {
+                    <tr>
+                        <td>@member.Name</td>
+                        <td>@member.Age</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+</Dialog>
+
+@code {
+    public record TeamMember(string Name, int Age);
+
+    public IEnumerable<TeamMember> Members { get; set; } = new List<TeamMember>{
+        new TeamMember("Peter", 37),
+        new TeamMember("Jessica", 32)
+    };
+
+    public IEnumerable<DialogButton> Buttons { get; set; } = new List<DialogButton>{
+        new DialogButton("OK", () =>
+        {
+            Debug.WriteLine("OK");
+        }),
+        new DialogButton("Cancel", () =>
+        {
+            Debug.WriteLine("Cancel");
+        })
+    };
+}

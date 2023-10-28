@@ -1,0 +1,29 @@
+﻿<h2>@Title</h2>
+
+<div>@Body</div>
+
+<div style="display: flex; margin-top: 10px;">
+    @if (Buttons != null)
+    {
+        foreach (var button in Buttons)
+        {
+            <button style="margin-right: 10px;"
+                    onclick="@button.Action">
+                @button.Text
+            </button>
+        }
+    }
+</div>
+
+@code {
+    public record DialogButton(string Text, Action Action);
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public RenderFragment? Body { get; set; }
+
+    [Parameter]
+    public IEnumerable<DialogButton>? Buttons { get; set; }
+}
